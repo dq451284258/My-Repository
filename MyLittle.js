@@ -57,3 +57,4 @@ var MessageInit = function(message,defalut,List)//message('id');default(默认�
 		}
 	}
 };
+//submit
