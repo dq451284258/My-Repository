@@ -57,4 +57,47 @@ var MessageInit = function(message,defalut,List)//message('id');default(默认�
 		}
 	}
 };
-//submit
+//环形进度条
+var cicle= function(degnum) {
+	var oTx = document.getElementById('tx');
+	var cicleTransform = function(num, old_num) {
+		var b_l_a = document.getElementById("bar-left-an");
+		var b_r_a = document.getElementById("bar-right-an");
+		var c_num = num;
+		if(c_num > 50) {
+			setTimeout(function() {
+				b_r_a.style.transform="rotate(45deg)";
+				b_r_a.style.transition="transform 1s linear";
+				setTimeout(function() {
+				b_l_a.style.transform="rotate(" + (((c_num-50)/100*360)-135) + "deg)";
+				b_l_a.style.transition="transform 0.5s linear";
+				},1000);
+			},500);
+		} else {
+			if(old_num > 50) {
+				setTimeout(function() {
+					b_r_a.style.transform="rotate(" + ((c_num/100*360)-135) + "deg)";
+					b_r_a.style.transition="transform 1s linear";
+				},1000);
+				b_l_a.style.transform="rotate(-135deg)";
+				b_l_a.style.transition="transform 1s linear";
+			} else {
+				setTimeout(function() {
+				b_r_a.style.transition="transform 1s linear";
+				b_r_a.style.transform="rotate(" + ((c_num/100*360)-135) + "deg)";
+				},500);
+			}
+			
+		}
+	}
+	var setnum = function(num) {
+		oTx.value=num+'%';
+	}
+	var getnum = function() {
+		return parseInt(oTx.value);
+	}
+	if(degnum>=0 && degnum <= 100){
+		cicleTransform(degnum, getnum());
+		setnum(degnum);
+	}
+};
